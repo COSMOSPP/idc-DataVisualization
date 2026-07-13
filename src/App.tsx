@@ -115,7 +115,15 @@ export default function App() {
                 <span className="text-[#00D4FF] text-[10px]">◀</span>
               </div>
               <h1 className="text-[30px] font-bold text-white tracking-widest text-shadow-glow uppercase font-sans italic" style={{ textShadow: '0 0 10px rgba(0, 212, 255, 0.6)' }}>
-                {currentPage === 'P002' ? 'IDC 数字孪生平台' : 'IDC 运营驾驶舱'}
+                {currentPage === 'P002' 
+                  ? 'IDC 数字孪生平台' 
+                  : currentPage === 'P003' 
+                    ? 'IDC 资源运营大屏' 
+                    : currentPage === 'P004'
+                      ? 'IDC 工程建设平台'
+                      : currentPage === 'P005'
+                        ? 'IDC 运维监控平台'
+                        : 'IDC 综合驾驶舱'}
               </h1>
               {/* Right Wing */}
               <div className="flex items-center space-x-1 opacity-60 ml-4">
@@ -162,7 +170,13 @@ export default function App() {
           {/* Row 2: Slanted Parallelogram Tabs */}
           <div className="w-full flex justify-center mt-2.5 mb-1">
             <div className="flex space-x-2.5">
-              {navItems.map((item) => {
+              {[
+                { id: 'P001', label: '综合驾驶舱', icon: <Home size={18} /> },
+                { id: 'P002', label: '数字孪生', icon: <Layers size={18} /> },
+                { id: 'P003', label: '资源运营', icon: <BarChart2 size={18} /> },
+                { id: 'P005', label: '运维监控', icon: <ShieldAlert size={18} /> },
+                { id: 'P004', label: '工程建设', icon: <FolderGit size={18} /> },
+              ].map((item) => {
                 const isActive = currentPage === item.id;
                 return (
                   <button
