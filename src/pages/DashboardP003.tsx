@@ -17,7 +17,6 @@ import {
   Area
 } from 'recharts';
 import { 
-  Server, 
   Database, 
   CheckSquare, 
   BatteryCharging, 
@@ -42,7 +41,7 @@ const PIE_COLORS_STATUS = ['#34C759', '#00D4FF', '#FF9500', '#FF3B30'];
 const PIE_COLORS_LIFECYCLE = ['#00D4FF', '#0066FF', '#34C759', '#7F3DFF'];
 
 // Custom progress ring component for "资源类型利用率"
-function ProgressRing({ percent, size = 66, strokeWidth = 5, color = '#00D4FF', title = '', detail = '', subDetail = '' }: { 
+function ProgressRing({ percent, size = 64, strokeWidth = 5, color = '#00D4FF', title = '', detail = '', subDetail = '' }: { 
   percent: number; 
   size?: number; 
   strokeWidth?: number; 
@@ -56,7 +55,7 @@ function ProgressRing({ percent, size = 66, strokeWidth = 5, color = '#00D4FF', 
   const offset = circumference - (percent / 100) * circumference;
 
   return (
-    <div className="flex flex-col items-center justify-center p-2 bg-[#030e24]/60 border border-[#00d4ff]/10 rounded-lg flex-1 text-center">
+    <div className="flex flex-col items-center justify-center p-2 bg-[#030e24]/60 border border-[#00d4ff]/10 rounded-lg flex-1 text-center min-h-0">
       <div className="relative" style={{ width: size, height: size }}>
         <svg className="w-full h-full transform -rotate-90">
           <circle
@@ -263,19 +262,19 @@ export default function DashboardP003() {
       <div className="flex-1 grid grid-cols-12 gap-3 min-h-0 mb-3">
         
         {/* LEFT COLUMN: col-span-3 (3 Cards - Distribution, Trend, Utilization) */}
-        <div className="col-span-3 flex flex-col gap-3 min-h-0">
+        <div className="col-span-3 flex flex-col gap-3 min-h-0 h-full">
           {/* Card 1: 资源类型分布 */}
-          <Card title="资源类型分布" extra="更多 >" className="flex-1 min-h-[170px] max-h-[195px]">
-            <div className="flex items-center h-full">
-              <div className="w-[45%] h-full relative flex items-center justify-center">
+          <Card title="资源类型分布" extra="更多 >" className="flex-1 min-h-0">
+            <div className="flex items-center h-full min-h-0">
+              <div className="w-[45%] h-full relative flex items-center justify-center min-h-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
                       data={cabinetTypeData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={38}
-                      outerRadius={48}
+                      innerRadius="65%"
+                      outerRadius="85%"
                       paddingAngle={3}
                       dataKey="value"
                     >
@@ -291,14 +290,14 @@ export default function DashboardP003() {
                   <span className="text-[8px] text-slate-500 font-sans mt-0.5">架</span>
                 </div>
               </div>
-              <div className="w-[55%] pl-2 flex flex-col justify-between py-1 space-y-1 text-[11px]">
+              <div className="w-[55%] pl-2 flex flex-col justify-center space-y-1.5 text-[11px] min-h-0">
                 {cabinetTypeData.map((item, idx) => (
                   <div key={idx} className="flex items-center justify-between text-slate-300">
                     <div className="flex items-center space-x-1.5 min-w-0">
                       <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: DONUT_COLORS_1[idx] }} />
-                      <span className="truncate">{item.name}</span>
+                      <span className="truncate text-slate-400">{item.name}</span>
                     </div>
-                    <span className="font-mono font-medium text-[10px] ml-1 shrink-0">{item.value.toLocaleString()}</span>
+                    <span className="font-mono font-medium text-[10px] ml-1 shrink-0 text-white">{item.value.toLocaleString()}</span>
                   </div>
                 ))}
               </div>
@@ -317,7 +316,7 @@ export default function DashboardP003() {
                 </div>
               </div>
             }
-            className="flex-1 min-h-[170px] max-h-[195px]"
+            className="flex-1 min-h-0"
           >
             <div className="h-full w-full min-h-0 mt-1">
               <ResponsiveContainer width="100%" height="100%">
@@ -335,17 +334,17 @@ export default function DashboardP003() {
           </Card>
 
           {/* Card 3: 资源利用率分布 */}
-          <Card title="资源利用率分布" extra="更多 >" className="flex-1 min-h-[150px] max-h-[175px]">
-            <div className="flex items-center h-full">
-              <div className="w-[45%] h-full relative flex items-center justify-center">
+          <Card title="资源利用率分布" extra="更多 >" className="flex-1 min-h-0">
+            <div className="flex items-center h-full min-h-0">
+              <div className="w-[45%] h-full relative flex items-center justify-center min-h-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
                       data={utilizationRangeData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={38}
-                      outerRadius={48}
+                      innerRadius="65%"
+                      outerRadius="85%"
                       paddingAngle={2}
                       dataKey="value"
                     >
@@ -361,14 +360,14 @@ export default function DashboardP003() {
                   <span className="text-[8px] text-slate-500 font-sans mt-0.5">架</span>
                 </div>
               </div>
-              <div className="w-[55%] pl-2 flex flex-col justify-between py-1 space-y-1 text-[11px]">
+              <div className="w-[55%] pl-2 flex flex-col justify-center space-y-1 text-[11px] min-h-0">
                 {utilizationRangeData.map((item, idx) => (
                   <div key={idx} className="flex items-center justify-between text-slate-300">
                     <div className="flex items-center space-x-1.5 min-w-0">
                       <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: DONUT_COLORS_2[idx] }} />
-                      <span className="truncate">{item.name}</span>
+                      <span className="truncate text-slate-400">{item.name}</span>
                     </div>
-                    <span className="font-mono font-medium text-[10px] ml-1 shrink-0">{item.value.toLocaleString()}</span>
+                    <span className="font-mono font-medium text-[10px] ml-1 shrink-0 text-white">{item.value.toLocaleString()}</span>
                   </div>
                 ))}
               </div>
@@ -377,15 +376,15 @@ export default function DashboardP003() {
         </div>
 
         {/* CENTER COLUMN: col-span-6 (China Map & TOP10 in upper row, Bottom Rings & Prediction in lower row) */}
-        <div className="col-span-6 flex flex-col gap-3 min-h-0">
+        <div className="col-span-6 flex flex-col gap-3 min-h-0 h-full">
           
           {/* Upper Row: Map Card (left) & TOP10 List Card (right) */}
-          <div className="flex-1 grid grid-cols-12 gap-3 min-h-0">
+          <div className="flex-[6] grid grid-cols-12 gap-3 min-h-0">
             {/* Map Card: col-span-7 */}
             <div className="col-span-7 flex flex-col min-h-0 h-full">
               <Card title="全国资源热力分布" className="h-full flex-1 flex flex-col relative">
                 <div className="flex-1 w-full relative flex items-center justify-center min-h-0 py-2">
-                  <ChinaMap className="w-auto h-full max-h-[350px] opacity-85" />
+                  <ChinaMap className="w-auto h-full max-h-[310px] opacity-85" />
                   
                   {/* Interactive City Nodes overlay */}
                   {mapHotspots.map((city) => (
@@ -439,7 +438,7 @@ export default function DashboardP003() {
                         <th className="w-1/6 pl-1">排名</th>
                         <th className="w-2/5">区域</th>
                         <th className="w-1/4">利用率</th>
-                        <th className="w-1/4 text-right pr-1">可用容量</th>
+                        <th className="w-1/4 text-right pr-1">可用</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-[#00d4ff]/5 flex flex-col w-full mt-1">
@@ -468,7 +467,7 @@ export default function DashboardP003() {
           </div>
 
           {/* Lower Row: Progress Rings (col-span-7) & Prediction (col-span-5) */}
-          <div className="grid grid-cols-12 gap-3 min-h-[165px] max-h-[185px]">
+          <div className="flex-[4] grid grid-cols-12 gap-3 min-h-0 h-full">
             {/* Left Card: 资源类型利用率 */}
             <div className="col-span-7 flex flex-col min-w-0 h-full">
               <Card title="资源类型利用率" extra="更多 >" className="h-full flex-1">
@@ -512,19 +511,19 @@ export default function DashboardP003() {
         </div>
 
         {/* RIGHT COLUMN: col-span-3 (3 Cards - Cabinet status, Lifecycle, Warnings) */}
-        <div className="col-span-3 flex flex-col gap-3 min-h-0">
+        <div className="col-span-3 flex flex-col gap-3 min-h-0 h-full">
           {/* Card 1: 机柜状态统计 */}
-          <Card title="机柜状态统计" extra="更多 >" className="flex-1 min-h-[170px] max-h-[195px]">
-            <div className="flex items-center h-full">
-              <div className="w-[45%] h-full relative flex items-center justify-center">
+          <Card title="机柜状态统计" extra="更多 >" className="flex-1 min-h-0">
+            <div className="flex items-center h-full min-h-0">
+              <div className="w-[45%] h-full relative flex items-center justify-center min-h-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
                       data={cabinetStatusData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={28}
-                      outerRadius={38}
+                      innerRadius="65%"
+                      outerRadius="85%"
                       paddingAngle={2}
                       dataKey="value"
                     >
@@ -540,14 +539,14 @@ export default function DashboardP003() {
                   <span className="text-[8px] text-slate-500 font-sans mt-0.5">架</span>
                 </div>
               </div>
-              <div className="w-[55%] pl-2 flex flex-col justify-between py-0.5 space-y-0.5 text-[10px]">
+              <div className="w-[55%] pl-2 flex flex-col justify-center space-y-1 text-[10px] min-h-0">
                 {cabinetStatusData.map((item, idx) => (
                   <div key={idx} className="flex items-center justify-between text-slate-300">
                     <div className="flex items-center space-x-1.5 min-w-0">
                       <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: PIE_COLORS_STATUS[idx] }} />
-                      <span className="truncate">{item.name}</span>
+                      <span className="truncate text-slate-400">{item.name}</span>
                     </div>
-                    <span className="font-mono text-[9px] shrink-0">{item.value.toLocaleString()}</span>
+                    <span className="font-mono text-[9px] shrink-0 text-white">{item.value.toLocaleString()}</span>
                   </div>
                 ))}
               </div>
@@ -555,17 +554,17 @@ export default function DashboardP003() {
           </Card>
 
           {/* Card 2: 资源生命周期分布 */}
-          <Card title="资源生命周期分布" extra="更多 >" className="flex-1 min-h-[170px] max-h-[195px]">
-            <div className="flex items-center h-full">
-              <div className="w-[45%] h-full relative flex items-center justify-center">
+          <Card title="资源生命周期分布" extra="更多 >" className="flex-1 min-h-0">
+            <div className="flex items-center h-full min-h-0">
+              <div className="w-[45%] h-full relative flex items-center justify-center min-h-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
                       data={lifecycleData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={28}
-                      outerRadius={38}
+                      innerRadius="65%"
+                      outerRadius="85%"
                       paddingAngle={2}
                       dataKey="value"
                     >
@@ -581,14 +580,14 @@ export default function DashboardP003() {
                   <span className="text-[8px] text-slate-500 font-sans mt-0.5">架</span>
                 </div>
               </div>
-              <div className="w-[55%] pl-2 flex flex-col justify-between py-0.5 space-y-0.5 text-[10px]">
+              <div className="w-[55%] pl-2 flex flex-col justify-center space-y-1 text-[10px] min-h-0">
                 {lifecycleData.map((item, idx) => (
                   <div key={idx} className="flex items-center justify-between text-slate-300">
                     <div className="flex items-center space-x-1.5 min-w-0">
                       <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: PIE_COLORS_LIFECYCLE[idx] }} />
-                      <span className="truncate">{item.name}</span>
+                      <span className="truncate text-slate-400">{item.name}</span>
                     </div>
-                    <span className="font-mono text-[9px] shrink-0">{item.value.toLocaleString()}</span>
+                    <span className="font-mono text-[9px] shrink-0 text-white">{item.value.toLocaleString()}</span>
                   </div>
                 ))}
               </div>
@@ -596,12 +595,12 @@ export default function DashboardP003() {
           </Card>
 
           {/* Card 3: 资源预警 */}
-          <Card title="资源预警" extra="更多 >" className="flex-1 min-h-[150px] max-h-[175px]">
-            <div className="flex flex-col justify-between h-full space-y-1.5 py-1">
+          <Card title="资源预警" extra="更多 >" className="flex-1 min-h-0">
+            <div className="flex flex-col justify-center h-full space-y-2 py-1 min-h-0">
               {resourceWarnings.map((warning, index) => (
                 <div 
                   key={index} 
-                  className={`flex items-center justify-between px-2.5 py-1 border rounded text-[11px] ${warning.border} hover:bg-[#00d4ff]/5 transition-all`}
+                  className={`flex items-center justify-between px-2.5 py-1.5 border rounded text-[11px] ${warning.border} hover:bg-[#00d4ff]/5 transition-all`}
                   style={{ backgroundColor: warning.bgGlow }}
                 >
                   <div className="flex items-center space-x-2">
