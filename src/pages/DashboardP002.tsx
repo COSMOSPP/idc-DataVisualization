@@ -389,7 +389,7 @@ export default function DashboardP002() {
                   >
                     {/* Render generated 3D image as background */}
                     <img 
-                      src="/datacenter_campus.png" 
+                      src={`${import.meta.env.BASE_URL}datacenter_campus.png`} 
                       alt="Datacenter Campus 3D" 
                       className="w-full h-full object-cover"
                     />
