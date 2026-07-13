@@ -14,7 +14,7 @@ cd dist
 
 # Initialize a temporary git repo in dist
 git init
-git checkout -b gh-pages
+git checkout -B gh-pages
 git add -A
 git commit -m 'deploy'
 
