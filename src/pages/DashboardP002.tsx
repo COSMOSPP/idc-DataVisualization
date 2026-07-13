@@ -184,7 +184,7 @@ export default function DashboardP002() {
             {/* Tree View (Scrollable) */}
             <div className="flex-1 overflow-y-auto custom-scrollbar text-[13px] font-sans space-y-1.5 pr-1">
               
-              {/* Root: 合肥IDC */}
+              {/* Root: 全国IDC */}
               <div>
                 <div 
                   onClick={() => toggleNode('hfidc')}
@@ -192,7 +192,7 @@ export default function DashboardP002() {
                 >
                   <ChevronDown size={14} className={`text-slate-400 transition-transform ${expandedNodes.has('hfidc') ? '' : '-rotate-90'}`} />
                   <Database size={14} className="text-[#00D4FF]" />
-                  <span className="font-medium">合肥IDC(128)</span>
+                  <span className="font-medium">全国IDC(128)</span>
                 </div>
 
                 {expandedNodes.has('hfidc') && (
@@ -270,10 +270,6 @@ export default function DashboardP002() {
                           </div>
 
                           {/* Node: 其他园区 */}
-                          <div className="flex items-center space-x-2 py-1 px-1.5 rounded cursor-pointer hover:bg-brand-primary/10 text-slate-400">
-                            <ChevronRight size={14} />
-                            <span>广州南沙园区</span>
-                          </div>
                           <div className="flex items-center space-x-2 py-1 px-1.5 rounded cursor-pointer hover:bg-brand-primary/10 text-slate-400">
                             <ChevronRight size={14} />
                             <span>南京江北园区</span>
