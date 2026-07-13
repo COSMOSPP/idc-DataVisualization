@@ -14,25 +14,21 @@ import {
   Pie, 
   Cell, 
   AreaChart,
-  Area,
-  Legend
+  Area
 } from 'recharts';
 import { 
   Server, 
   Database, 
   CheckSquare, 
   BatteryCharging, 
-  Activity, 
   Percent, 
   CloudUpload, 
   ShieldCheck, 
   Radio, 
   Globe, 
-  TrendingUp, 
-  TrendingDown, 
+  Clock, 
   Layers, 
   Cpu, 
-  Clock, 
   Network,
   FileText,
   AlertTriangle,
@@ -46,7 +42,7 @@ const PIE_COLORS_STATUS = ['#34C759', '#00D4FF', '#FF9500', '#FF3B30'];
 const PIE_COLORS_LIFECYCLE = ['#00D4FF', '#0066FF', '#34C759', '#7F3DFF'];
 
 // Custom progress ring component for "资源类型利用率"
-function ProgressRing({ percent, size = 68, strokeWidth = 5, color = '#00D4FF', title = '', detail = '', subDetail = '' }: { 
+function ProgressRing({ percent, size = 66, strokeWidth = 5, color = '#00D4FF', title = '', detail = '', subDetail = '' }: { 
   percent: number; 
   size?: number; 
   strokeWidth?: number; 
@@ -60,7 +56,7 @@ function ProgressRing({ percent, size = 68, strokeWidth = 5, color = '#00D4FF', 
   const offset = circumference - (percent / 100) * circumference;
 
   return (
-    <div className="flex flex-col items-center justify-center p-2.5 bg-[#030e24]/60 border border-[#00d4ff]/10 rounded-lg flex-1 text-center">
+    <div className="flex flex-col items-center justify-center p-2 bg-[#030e24]/60 border border-[#00d4ff]/10 rounded-lg flex-1 text-center">
       <div className="relative" style={{ width: size, height: size }}>
         <svg className="w-full h-full transform -rotate-90">
           <circle
@@ -85,12 +81,12 @@ function ProgressRing({ percent, size = 68, strokeWidth = 5, color = '#00D4FF', 
             style={{ filter: `drop-shadow(0 0 3px ${color}88)` }}
           />
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center font-mono font-bold text-white text-[13px]">
+        <div className="absolute inset-0 flex items-center justify-center font-mono font-bold text-white text-[12px]">
           {percent}%
         </div>
       </div>
-      <span className="text-[12px] text-white font-sans font-bold mt-2 whitespace-nowrap">{title}</span>
-      <span className="text-[10px] text-slate-400 font-sans mt-0.5 whitespace-nowrap">{detail}</span>
+      <span className="text-[11px] text-white font-sans font-bold mt-1.5 whitespace-nowrap">{title}</span>
+      <span className="text-[9px] text-slate-400 font-sans mt-0.5 whitespace-nowrap">{detail}</span>
       <span className="text-[9px] text-[#00D4FF]/80 font-mono mt-0.5 whitespace-nowrap">{subDetail}</span>
     </div>
   );
@@ -99,18 +95,17 @@ function ProgressRing({ percent, size = 68, strokeWidth = 5, color = '#00D4FF', 
 export default function DashboardP003() {
   const [hoveredCity, setHoveredCity] = useState<string | null>(null);
   const [selectedRange, setSelectedRange] = useState<'7d' | '30d' | '1y'>('7d');
-  const [selectedType, setSelectedType] = useState<'rack' | 'cabinet' | 'server' | 'ip'>('cabinet');
 
   // Top Row Metric Data
   const topMetrics = [
-    { title: '资源总容量 (机柜)', value: 68542, change: '11.2%', up: true, icon: <Database size={20} className="text-[#00D4FF]" />, color: '#00D4FF' },
-    { title: '已用容量', value: 52685, change: '8.6%', up: true, icon: <CheckSquare size={20} className="text-[#34C759]" />, color: '#34C759' },
-    { title: '可用容量', value: 15857, change: '16.8%', up: true, icon: <BatteryCharging size={20} className="text-[#0066FF]" />, color: '#0066FF' },
-    { title: '平均利用率', value: 76.8, suffix: '%', change: '6.3%', up: true, icon: <Percent size={20} className="text-[#FF9500]" />, color: '#FF9500' },
-    { title: '上架率', value: 82.5, suffix: '%', change: '4.8%', up: true, icon: <CloudUpload size={20} className="text-[#00D4FF]" />, color: '#00D4FF' },
-    { title: '出租率', value: 68.3, suffix: '%', change: '7.2%', up: true, icon: <ShieldCheck size={20} className="text-[#34C759]" />, color: '#34C759' },
-    { title: '带宽使用率', value: 56.3, suffix: '%', change: '3.9%', up: true, icon: <Radio size={20} className="text-[#00D4FF]" />, color: '#00D4FF' },
-    { title: 'IP使用率', value: 64.1, suffix: '%', change: '5.5%', up: true, icon: <Globe size={20} className="text-[#34C759]" />, color: '#34C759' },
+    { title: '资源总容量 (机柜)', value: 68542, change: '11.2%', up: true, icon: <Database size={18} className="text-[#00D4FF]" />, color: '#00D4FF' },
+    { title: '已用容量', value: 52685, change: '8.6%', up: true, icon: <CheckSquare size={18} className="text-[#34C759]" />, color: '#34C759' },
+    { title: '可用容量', value: 15857, change: '16.8%', up: true, icon: <BatteryCharging size={18} className="text-[#0066FF]" />, color: '#0066FF' },
+    { title: '平均利用率', value: 76.8, suffix: '%', change: '6.3%', up: true, icon: <Percent size={18} className="text-[#FF9500]" />, color: '#FF9500' },
+    { title: '上架率', value: 82.5, suffix: '%', change: '4.8%', up: true, icon: <CloudUpload size={18} className="text-[#00D4FF]" />, color: '#00D4FF' },
+    { title: '出租率', value: 68.3, suffix: '%', change: '7.2%', up: true, icon: <ShieldCheck size={18} className="text-[#34C759]" />, color: '#34C759' },
+    { title: '带宽使用率', value: 56.3, suffix: '%', change: '3.9%', up: true, icon: <Radio size={18} className="text-[#00D4FF]" />, color: '#00D4FF' },
+    { title: 'IP使用率', value: 64.1, suffix: '%', change: '5.5%', up: true, icon: <Globe size={18} className="text-[#34C759]" />, color: '#34C759' },
   ];
 
   // Left Col - 1. 资源类型分布
@@ -155,7 +150,7 @@ export default function DashboardP003() {
     { name: '30%以下', value: 6177, pct: '9.0%' }
   ];
 
-  // Right Col - 1. TOP10 list
+  // Center Row - TOP10 list
   const top10Regions = [
     { rank: 1, name: '北京数据中心', rate: '92.4%', cap: '2,156' },
     { rank: 2, name: '上海数据中心', rate: '89.7%', cap: '1,856' },
@@ -169,7 +164,7 @@ export default function DashboardP003() {
     { rank: 10, name: '天津数据中心', rate: '70.2%', cap: '1,256' },
   ];
 
-  // Right Col - 2. 机柜状态统计
+  // Right Col - 1. 机柜状态统计
   const cabinetStatusData = [
     { name: '运行中', value: 46856, pct: '80.4%' },
     { name: '空闲', value: 8652, pct: '14.8%' },
@@ -177,7 +172,7 @@ export default function DashboardP003() {
     { name: '故障', value: 572, pct: '1.1%' }
   ];
 
-  // Right Col - 3. 资源生命周期分布
+  // Right Col - 2. 资源生命周期分布
   const lifecycleData = [
     { name: '0-1年', value: 12856, pct: '18.8%' },
     { name: '1-3年', value: 22314, pct: '32.6%' },
@@ -185,7 +180,7 @@ export default function DashboardP003() {
     { name: '5年以上', value: 14720, pct: '21.4%' }
   ];
 
-  // Right Col - 4. 资源预警
+  // Right Col - 3. 资源预警
   const resourceWarnings = [
     { label: '高利用率预警 (>90%)', val: 132, color: 'bg-[#FF3B30]', textColor: 'text-[#FF3B30]', border: 'border-[#FF3B30]/30', bgGlow: 'rgba(255, 59, 48, 0.08)' },
     { label: '容量不足预警 (<10%)', val: 88, color: 'bg-[#FF9500]', textColor: 'text-[#FF9500]', border: 'border-[#FF9500]/30', bgGlow: 'rgba(255, 149, 0, 0.08)' },
@@ -221,13 +216,13 @@ export default function DashboardP003() {
 
   // Bottom dynamics
   const bottomDynamics = [
-    { label: '新增机柜 (今日)', val: '128', unit: '架', change: '12%', up: true, icon: <Layers size={15} /> },
-    { label: '下架机柜 (今日)', val: '56', unit: '架', change: '8%', up: false, icon: <Layers size={15} /> },
-    { label: '上架设备 (今日)', val: '256', unit: '台', change: '15%', up: true, icon: <Cpu size={15} /> },
-    { label: '下架设备 (今日)', val: '98', unit: '台', change: '6%', up: false, icon: <Cpu size={15} /> },
-    { label: '新增带宽 (今日)', val: '2.56', unit: 'Tbps', change: '4%', up: true, icon: <Network size={15} /> },
-    { label: '新增IP (今日)', val: '1,256', unit: '个', change: '10%', up: true, icon: <Globe size={15} /> },
-    { label: '新增域名 (今日)', val: '856', unit: '个', change: '7%', up: true, icon: <FileText size={15} /> },
+    { label: '新增机柜 (今日)', val: '128', unit: '架', change: '12%', up: true, icon: <Layers size={14} /> },
+    { label: '下架机柜 (今日)', val: '56', unit: '架', change: '8%', up: false, icon: <Layers size={14} /> },
+    { label: '上架设备 (今日)', val: '256', unit: '台', change: '15%', up: true, icon: <Cpu size={14} /> },
+    { label: '下架设备 (今日)', val: '98', unit: '台', change: '6%', up: false, icon: <Cpu size={14} /> },
+    { label: '新增带宽 (今日)', val: '2.56', unit: 'Tbps', change: '4%', up: true, icon: <Network size={14} /> },
+    { label: '新增IP (今日)', val: '1,256', unit: '个', change: '10%', up: true, icon: <Globe size={14} /> },
+    { label: '新增域名 (今日)', val: '856', unit: '个', change: '7%', up: true, icon: <FileText size={14} /> },
   ];
 
   return (
@@ -267,10 +262,10 @@ export default function DashboardP003() {
       {/* 2. MIDDLE GRID: Left, Center, Right Columns */}
       <div className="flex-1 grid grid-cols-12 gap-3 min-h-0 mb-3">
         
-        {/* LEFT COLUMN: col-span-3 (3 Cards) */}
+        {/* LEFT COLUMN: col-span-3 (3 Cards - Distribution, Trend, Utilization) */}
         <div className="col-span-3 flex flex-col gap-3 min-h-0">
           {/* Card 1: 资源类型分布 */}
-          <Card title="资源类型分布" extra="更多 >" className="flex-1 min-h-[170px] max-h-[190px]">
+          <Card title="资源类型分布" extra="更多 >" className="flex-1 min-h-[170px] max-h-[195px]">
             <div className="flex items-center h-full">
               <div className="w-[45%] h-full relative flex items-center justify-center">
                 <ResponsiveContainer width="100%" height="100%">
@@ -303,7 +298,7 @@ export default function DashboardP003() {
                       <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: DONUT_COLORS_1[idx] }} />
                       <span className="truncate">{item.name}</span>
                     </div>
-                    <span className="font-mono font-medium text-[10px] ml-1 shrink-0">{item.value.toLocaleString()} ({item.pct})</span>
+                    <span className="font-mono font-medium text-[10px] ml-1 shrink-0">{item.value.toLocaleString()}</span>
                   </div>
                 ))}
               </div>
@@ -322,7 +317,7 @@ export default function DashboardP003() {
                 </div>
               </div>
             }
-            className="flex-1 min-h-[190px] max-h-[220px]"
+            className="flex-1 min-h-[170px] max-h-[195px]"
           >
             <div className="h-full w-full min-h-0 mt-1">
               <ResponsiveContainer width="100%" height="100%">
@@ -340,7 +335,7 @@ export default function DashboardP003() {
           </Card>
 
           {/* Card 3: 资源利用率分布 */}
-          <Card title="资源利用率分布" extra="更多 >" className="flex-1 min-h-[170px] max-h-[190px]">
+          <Card title="资源利用率分布" extra="更多 >" className="flex-1 min-h-[150px] max-h-[175px]">
             <div className="flex items-center h-full">
               <div className="w-[45%] h-full relative flex items-center justify-center">
                 <ResponsiveContainer width="100%" height="100%">
@@ -373,7 +368,7 @@ export default function DashboardP003() {
                       <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: DONUT_COLORS_2[idx] }} />
                       <span className="truncate">{item.name}</span>
                     </div>
-                    <span className="font-mono font-medium text-[10px] ml-1 shrink-0">{item.value.toLocaleString()} ({item.pct})</span>
+                    <span className="font-mono font-medium text-[10px] ml-1 shrink-0">{item.value.toLocaleString()}</span>
                   </div>
                 ))}
               </div>
@@ -381,59 +376,101 @@ export default function DashboardP003() {
           </Card>
         </div>
 
-        {/* CENTER COLUMN: col-span-6 (China Map & Bottom Dials + Prediction) */}
+        {/* CENTER COLUMN: col-span-6 (China Map & TOP10 in upper row, Bottom Rings & Prediction in lower row) */}
         <div className="col-span-6 flex flex-col gap-3 min-h-0">
           
-          {/* Main Map Visualizer */}
-          <Card title="全国资源热力分布" className="flex-1 flex flex-col min-h-[300px]">
-            <div className="flex-1 w-full relative flex items-center justify-center min-h-0 py-2">
-              <ChinaMap className="w-auto h-full max-h-[360px] opacity-85" />
-              
-              {/* Interactive City Nodes overlay */}
-              {mapHotspots.map((city) => (
-                <div 
-                  key={city.id} 
-                  className="absolute cursor-pointer transition-all duration-300 select-none group"
-                  style={{ left: city.left, top: city.top }}
-                  onMouseEnter={() => setHoveredCity(city.id)}
-                  onMouseLeave={() => setHoveredCity(null)}
-                >
-                  <div className="relative flex items-center justify-center">
-                    <div className="absolute w-5 h-5 rounded-full bg-[#00D4FF]/30 border border-[#00D4FF] animate-ping opacity-60 pointer-events-none" />
-                    <MapPin size={16} className="text-[#00D4FF] filter drop-shadow-[0_0_4px_#00D4FF] relative z-10 transition-transform group-hover:scale-125" />
-                  </div>
+          {/* Upper Row: Map Card (left) & TOP10 List Card (right) */}
+          <div className="flex-1 grid grid-cols-12 gap-3 min-h-0">
+            {/* Map Card: col-span-7 */}
+            <div className="col-span-7 flex flex-col min-h-0 h-full">
+              <Card title="全国资源热力分布" className="h-full flex-1 flex flex-col relative">
+                <div className="flex-1 w-full relative flex items-center justify-center min-h-0 py-2">
+                  <ChinaMap className="w-auto h-full max-h-[350px] opacity-85" />
+                  
+                  {/* Interactive City Nodes overlay */}
+                  {mapHotspots.map((city) => (
+                    <div 
+                      key={city.id} 
+                      className="absolute cursor-pointer transition-all duration-300 select-none group"
+                      style={{ left: city.left, top: city.top }}
+                      onMouseEnter={() => setHoveredCity(city.id)}
+                      onMouseLeave={() => setHoveredCity(null)}
+                    >
+                      <div className="relative flex items-center justify-center">
+                        <div className="absolute w-5 h-5 rounded-full bg-[#00D4FF]/30 border border-[#00D4FF] animate-ping opacity-60 pointer-events-none" />
+                        <MapPin size={16} className="text-[#00D4FF] filter drop-shadow-[0_0_4px_#00D4FF] relative z-10 transition-transform group-hover:scale-125" />
+                      </div>
 
-                  {/* Popover city details on hover */}
-                  <div className={`absolute bottom-6 left-1/2 -translate-x-1/2 bg-[#020a1c]/95 border border-[#00d4ff]/40 shadow-[0_0_15px_rgba(0,212,255,0.4)] rounded-lg p-2.5 w-[140px] text-white z-30 transition-opacity duration-300 pointer-events-none ${hoveredCity === city.id ? 'opacity-100 block' : 'opacity-0 hidden'}`}>
-                    <h4 className="text-[12px] font-bold border-b border-[#00D4FF]/35 pb-1 mb-1.5 flex items-center text-[#00D4FF] tracking-wide">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF] mr-1.5" />
-                      {city.name}
-                    </h4>
-                    <div className="space-y-1 text-[10px] text-slate-300 font-sans">
-                      <div className="flex justify-between"><span>利用率:</span><span className="font-mono font-bold text-white">{city.rate}</span></div>
-                      <div className="flex justify-between"><span>可用容量:</span><span className="font-mono text-[#0066FF]">{city.cap}</span></div>
-                      <div className="flex justify-between"><span>PUE指标:</span><span className="font-mono text-brand-success font-bold">{city.pue}</span></div>
+                      {/* Popover city details on hover */}
+                      <div className={`absolute bottom-6 left-1/2 -translate-x-1/2 bg-[#020a1c]/95 border border-[#00d4ff]/40 shadow-[0_0_15px_rgba(0,212,255,0.4)] rounded-lg p-2.5 w-[140px] text-white z-30 transition-opacity duration-300 pointer-events-none ${hoveredCity === city.id ? 'opacity-100 block' : 'opacity-0 hidden'}`}>
+                        <h4 className="text-[12px] font-bold border-b border-[#00D4FF]/35 pb-1 mb-1.5 flex items-center text-[#00D4FF] tracking-wide">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF] mr-1.5" />
+                          {city.name}
+                        </h4>
+                        <div className="space-y-1 text-[10px] text-slate-300 font-sans">
+                          <div className="flex justify-between"><span>利用率:</span><span className="font-mono font-bold text-white">{city.rate}</span></div>
+                          <div className="flex justify-between"><span>可用容量:</span><span className="font-mono text-[#0066FF]">{city.cap}</span></div>
+                          <div className="flex justify-between"><span>PUE指标:</span><span className="font-mono text-brand-success font-bold">{city.pue}</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Map Legend */}
+                  <div className="absolute bottom-2 left-3 bg-[#030e24]/70 border border-[#00d4ff]/10 rounded px-2 py-1 flex flex-col font-sans select-none pointer-events-none shadow">
+                    <span className="text-[9px] text-slate-400">利用率级别</span>
+                    <div className="flex items-center space-x-1.5 mt-0.5">
+                      <span className="text-[8px] text-slate-400">低</span>
+                      <div className="w-20 h-1.5 rounded bg-gradient-to-r from-[#00D4FF] via-[#34C759] to-[#FF3B30]" />
+                      <span className="text-[8px] text-slate-400">高</span>
                     </div>
                   </div>
                 </div>
-              ))}
-
-              {/* Map Legend */}
-              <div className="absolute bottom-2.5 left-4 bg-[#030e24]/70 border border-[#00d4ff]/10 rounded px-2.5 py-1.5 flex flex-col font-sans select-none pointer-events-none shadow">
-                <span className="text-[10px] text-slate-400">利用率级别</span>
-                <div className="flex items-center space-x-2 mt-1">
-                  <span className="text-[9px] text-slate-400">低</span>
-                  <div className="w-24 h-2 rounded bg-gradient-to-r from-[#00D4FF] via-[#34C759] to-[#FF3B30]" />
-                  <span className="text-[9px] text-slate-400">高</span>
-                </div>
-              </div>
+              </Card>
             </div>
-          </Card>
 
-          {/* Bottom Sub-row Grid of Dials & Trends */}
-          <div className="grid grid-cols-12 gap-3 min-h-[170px] max-h-[190px]">
+            {/* TOP10 List Card: col-span-5 */}
+            <div className="col-span-5 flex flex-col min-h-0 h-full">
+              <Card title="区域资源利用率 TOP10" extra="更多 >" className="h-full flex-1">
+                <div className="flex-1 overflow-y-auto custom-scrollbar pr-0.5 mt-0.5 text-[11px] font-sans">
+                  <table className="w-full text-left text-slate-300">
+                    <thead>
+                      <tr className="border-b border-[#00d4ff]/15 text-slate-400 font-medium pb-1 flex w-full">
+                        <th className="w-1/6 pl-1">排名</th>
+                        <th className="w-2/5">区域</th>
+                        <th className="w-1/4">利用率</th>
+                        <th className="w-1/4 text-right pr-1">可用容量</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#00d4ff]/5 flex flex-col w-full mt-1">
+                      {top10Regions.map((region, index) => (
+                        <tr key={index} className="flex py-1 items-center w-full hover:bg-[#00d4ff]/5 transition-colors rounded">
+                          <td className="w-1/6 pl-1">
+                            <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-mono font-bold text-white ${
+                              region.rank === 1 ? 'bg-[#FF3B30] shadow-[0_0_6px_#FF3B30]' : 
+                              region.rank === 2 ? 'bg-[#FF9500] shadow-[0_0_6px_#FF9500]' : 
+                              region.rank === 3 ? 'bg-[#FFCC00] shadow-[0_0_6px_#FFCC00]' : 
+                              'bg-slate-700'
+                            }`}>
+                              {region.rank}
+                            </span>
+                          </td>
+                          <td className="w-2/5 font-sans font-medium text-white truncate">{region.name}</td>
+                          <td className="w-1/4 font-mono font-bold text-[#FF3B30]">{region.rate}</td>
+                          <td className="w-1/4 font-mono text-[#00D4FF] text-right pr-1">{region.cap}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </Card>
+            </div>
+          </div>
+
+          {/* Lower Row: Progress Rings (col-span-7) & Prediction (col-span-5) */}
+          <div className="grid grid-cols-12 gap-3 min-h-[165px] max-h-[185px]">
             {/* Left Card: 资源类型利用率 */}
-            <div className="col-span-7 flex flex-col min-w-0">
+            <div className="col-span-7 flex flex-col min-w-0 h-full">
               <Card title="资源类型利用率" extra="更多 >" className="h-full flex-1">
                 <div className="flex items-center justify-between gap-2 h-full py-1">
                   <ProgressRing percent={78.6} title="标准机柜" detail="已用 33,682" subDetail="利用率 78.6%" />
@@ -445,7 +482,7 @@ export default function DashboardP003() {
             </div>
 
             {/* Right Card: 未来容量预测 */}
-            <div className="col-span-5 flex flex-col min-w-0">
+            <div className="col-span-5 flex flex-col min-w-0 h-full">
               <Card title="资源容量预测 (未来12个月)" extra="机架 | 线性预测" className="h-full flex-1">
                 <div className="h-full w-full min-h-0 mt-1">
                   <ResponsiveContainer width="100%" height="100%">
@@ -474,46 +511,10 @@ export default function DashboardP003() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: col-span-3 (4 Cards) */}
+        {/* RIGHT COLUMN: col-span-3 (3 Cards - Cabinet status, Lifecycle, Warnings) */}
         <div className="col-span-3 flex flex-col gap-3 min-h-0">
-          
-          {/* Card 1: 区域资源利用率 TOP10 */}
-          <Card title="区域资源利用率 TOP10" extra="更多 >" className="flex-1 min-h-[170px] max-h-[220px]">
-            <div className="flex-1 overflow-y-auto custom-scrollbar pr-0.5 mt-1">
-              <table className="w-full text-[11px] font-sans text-slate-300">
-                <thead>
-                  <tr className="border-b border-[#00d4ff]/15 text-slate-400 text-left font-medium pb-1 flex w-full">
-                    <th className="w-1/6 pl-1.5">排名</th>
-                    <th className="w-2/5">区域</th>
-                    <th className="w-1/4">利用率</th>
-                    <th className="w-1/4 text-right pr-1.5">可用容量</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#00d4ff]/5 flex flex-col w-full mt-1">
-                  {top10Regions.map((region, index) => (
-                    <tr key={index} className="flex py-1.5 items-center w-full hover:bg-[#00d4ff]/5 transition-colors rounded">
-                      <td className="w-1/6 pl-1.5">
-                        <span className={`w-4.5 h-4.5 rounded-full flex items-center justify-center text-[10px] font-mono font-bold text-white ${
-                          region.rank === 1 ? 'bg-[#FF3B30] shadow-[0_0_6px_#FF3B30]' : 
-                          region.rank === 2 ? 'bg-[#FF9500] shadow-[0_0_6px_#FF9500]' : 
-                          region.rank === 3 ? 'bg-[#FFCC00] shadow-[0_0_6px_#FFCC00]' : 
-                          'bg-slate-700'
-                        }`}>
-                          {region.rank}
-                        </span>
-                      </td>
-                      <td className="w-2/5 font-sans font-medium text-white truncate">{region.name}</td>
-                      <td className="w-1/4 font-mono font-bold text-[#FF3B30]">{region.rate}</td>
-                      <td className="w-1/4 font-mono text-[#00D4FF] text-right pr-1.5">{region.cap}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </Card>
-
-          {/* Card 2: 机柜状态统计 */}
-          <Card title="机柜状态统计" extra="更多 >" className="flex-1 min-h-[120px] max-h-[140px]">
+          {/* Card 1: 机柜状态统计 */}
+          <Card title="机柜状态统计" extra="更多 >" className="flex-1 min-h-[170px] max-h-[195px]">
             <div className="flex items-center h-full">
               <div className="w-[45%] h-full relative flex items-center justify-center">
                 <ResponsiveContainer width="100%" height="100%">
@@ -546,15 +547,15 @@ export default function DashboardP003() {
                       <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: PIE_COLORS_STATUS[idx] }} />
                       <span className="truncate">{item.name}</span>
                     </div>
-                    <span className="font-mono text-[9px] shrink-0">{item.value.toLocaleString()} ({item.pct})</span>
+                    <span className="font-mono text-[9px] shrink-0">{item.value.toLocaleString()}</span>
                   </div>
                 ))}
               </div>
             </div>
           </Card>
 
-          {/* Card 3: 资源生命周期分布 */}
-          <Card title="资源生命周期分布" extra="更多 >" className="flex-1 min-h-[120px] max-h-[140px]">
+          {/* Card 2: 资源生命周期分布 */}
+          <Card title="资源生命周期分布" extra="更多 >" className="flex-1 min-h-[170px] max-h-[195px]">
             <div className="flex items-center h-full">
               <div className="w-[45%] h-full relative flex items-center justify-center">
                 <ResponsiveContainer width="100%" height="100%">
@@ -587,16 +588,16 @@ export default function DashboardP003() {
                       <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: PIE_COLORS_LIFECYCLE[idx] }} />
                       <span className="truncate">{item.name}</span>
                     </div>
-                    <span className="font-mono text-[9px] shrink-0">{item.value.toLocaleString()} ({item.pct})</span>
+                    <span className="font-mono text-[9px] shrink-0">{item.value.toLocaleString()}</span>
                   </div>
                 ))}
               </div>
             </div>
           </Card>
 
-          {/* Card 4: 资源预警 */}
-          <Card title="资源预警" extra="更多 >" className="flex-1 min-h-[130px] max-h-[155px]">
-            <div className="flex flex-col justify-between h-full space-y-1 py-1">
+          {/* Card 3: 资源预警 */}
+          <Card title="资源预警" extra="更多 >" className="flex-1 min-h-[150px] max-h-[175px]">
+            <div className="flex flex-col justify-between h-full space-y-1.5 py-1">
               {resourceWarnings.map((warning, index) => (
                 <div 
                   key={index} 
@@ -625,7 +626,7 @@ export default function DashboardP003() {
         <div className="flex-1 flex justify-around pl-4 items-center">
           {bottomDynamics.map((item, index) => (
             <div key={index} className="flex items-center space-x-3 group cursor-pointer font-sans">
-              <div className="p-1.5 rounded-full bg-[#00d4ff]/5 border border-[#00d4ff]/15 text-[#00D4FF] group-hover:bg-[#00d4ff]/15 group-hover:scale-110 transition-all duration-300 shadow animate-none">
+              <div className="p-1.5 rounded-full bg-[#00d4ff]/5 border border-[#00d4ff]/15 text-[#00D4FF] group-hover:bg-[#00d4ff]/15 group-hover:scale-110 transition-all duration-300 shadow">
                 {item.icon}
               </div>
               <div className="flex flex-col">
