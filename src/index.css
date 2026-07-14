@@ -101,9 +101,33 @@ body {
   70% { box-shadow: 0 0 0 12px rgba(0, 212, 255, 0); }
   100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0); }
 }
+@keyframes marker-glow-red {
+  0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.6); }
+  70% { box-shadow: 0 0 0 12px rgba(255, 59, 48, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
+}
+@keyframes marker-glow-yellow {
+  0% { box-shadow: 0 0 0 0 rgba(255, 149, 0, 0.6); }
+  70% { box-shadow: 0 0 0 12px rgba(255, 149, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 149, 0, 0); }
+}
+@keyframes marker-glow-green {
+  0% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.6); }
+  70% { box-shadow: 0 0 0 12px rgba(52, 199, 89, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0); }
+}
 .pulse-glow-orange {
   animation: marker-glow-orange 2s infinite;
 }
 .pulse-glow-cyan {
   animation: marker-glow-cyan 2s infinite;
+}
+.pulse-glow-red {
+  animation: marker-glow-red 2.5s infinite;
+}
+.pulse-glow-yellow {
+  animation: marker-glow-yellow 2.5s infinite;
+}
+.pulse-glow-green {
+  animation: marker-glow-green 2.5s infinite;
 }

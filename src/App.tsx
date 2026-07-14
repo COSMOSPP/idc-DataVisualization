@@ -10,7 +10,7 @@ import {
   BarChart2, 
   Layers, 
   ShieldAlert, 
-  FolderGit, 
+  Cpu, 
   CloudSun, 
   User, 
   ChevronDown,
@@ -65,7 +65,7 @@ export default function App() {
     { id: 'P002', label: '数字孪生', icon: <Layers size={18} /> },
     { id: 'P003', label: '资源运营', icon: <BarChart2 size={18} /> },
     { id: 'P005', label: '运维监控', icon: <ShieldAlert size={18} /> },
-    { id: 'P004', label: '智算中心', icon: <FolderGit size={18} /> },
+    { id: 'P004', label: '智算中心', icon: <Cpu size={18} /> },
   ];
 
   const getWeekDay = (date: Date) => {
@@ -120,7 +120,7 @@ export default function App() {
                   : currentPage === 'P003' 
                     ? 'IDC 资源运营大屏' 
                     : currentPage === 'P004'
-                      ? 'IDC 工程建设平台'
+                      ? 'IDC 智算中心'
                       : currentPage === 'P005'
                         ? 'IDC 运维监控平台'
                         : 'IDC 综合驾驶舱'}
@@ -175,7 +175,7 @@ export default function App() {
                 { id: 'P002', label: '数字孪生', icon: <Layers size={18} /> },
                 { id: 'P003', label: '资源运营', icon: <BarChart2 size={18} /> },
                 { id: 'P005', label: '运维监控', icon: <ShieldAlert size={18} /> },
-                { id: 'P004', label: '工程建设', icon: <FolderGit size={18} /> },
+                { id: 'P004', label: '智算中心', icon: <Cpu size={18} /> },
               ].map((item) => {
                 const isActive = currentPage === item.id;
                 return (
